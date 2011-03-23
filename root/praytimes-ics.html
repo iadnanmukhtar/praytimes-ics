@@ -1,0 +1,60 @@
+<html><script type="text/javascript" src="http://praytimes.org/code/v2/js/PrayTimes.js"></script><body><pre>BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:ET
+BEGIN:STANDARD
+DTSTART:20101107T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=1SU;BYMONTH=11
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:Standard Time
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20110313T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=2SU;BYMONTH=3
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:Daylight Savings Time
+END:DAYLIGHT
+END:VTIMEZONE
+<script>
+	prayTimes.setMethod('ISNA');
+	var year = 2011;
+	var coords = [33.785853, -84.40153];
+	for (var month=0; month < 12; month++) {
+		for (var date=1; date <= 31; date++) {
+			var d = new Date(year, month, date, 0, 0, 0, 0);
+			if (d.getFullYear() == year &&	d.getMonth() == month && d.getDate() == date) {
+				var times = prayTimes.getTimes(d, coords, 0, false, '24h');
+				printEvent('Fajr', times.fajr);
+				printEvent('Dhuhur', times.dhuhr);
+				printEvent('Asr', times.asr);
+				printEvent('Maghrib', times.maghrib);
+				printEvent('Isha', times.isha);
+			}
+		}
+	}
+	function pad(n) {
+		if (n<10)
+			return '0'+n;
+		return ''+n;
+	}
+	function printEvent(name, time) {
+		var t = time.split(':');
+		var dt = d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + "T" + t[0] + t[1] + "00Z";
+		document.writeln("BEGIN:VEVENT");
+			document.writeln("SUMMARY:" + name);
+			document.writeln("DTSTART:" + dt);
+			document.writeln("DURATION:PT5M");
+			document.writeln("RRULE:FREQ=YEARLY;INTERVAL=2");
+			document.writeln("LOCATION:Al-Farooq Masjid of Atlanta");
+			document.writeln("CLASS:PUBLIC");
+			document.writeln("TRANSP:TRANSPARENT");
+			document.writeln("BEGIN:VALARM");
+				document.writeln("TRIGGER:-PT0M");
+				document.writeln("ACTION:DISPLAY");
+				document.writeln("DESCRIPTION:Reminder");
+			document.writeln("END:VALARM");
+		document.writeln("END:VEVENT");
+	}
+</script>BEGIN:VCALENDAR</pre></body></html>
