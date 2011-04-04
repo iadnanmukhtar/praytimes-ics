@@ -1,0 +1,124 @@
+body, form, ul {	
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	outline: 0;
+	vertical-align: baseline;
+}
+
+body {
+	background: #C5CCD3;
+	color: #4C566C;
+	font: 12px Helvetica, Arial, Verdana, sans-serif;
+}
+
+.header {
+	background: #73839C;
+	height: 43px;
+	width: device-width;
+	text-align: left;
+	padding-left: 15px;
+}
+
+h1, h2 {
+	padding-left: 15px;
+}
+
+h1 {
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+	padding: 11px 0;
+	line-height: 21px;
+}
+
+button {
+	background: #8EA4C1;
+	border-radius: 7px;
+	border: 1px solid #2B3942;
+	height: 24px;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+}
+
+#settings {
+	position: absolute;
+	top: 7px;
+	right: 0.5em;
+}
+
+h2 {
+	font-size: 12px;
+}
+
+ul, .center {
+	clear: both;
+	margin: 12px auto 7px auto;
+	background: white;
+	border-radius: 8px;
+	width: 92%;
+	text-align: center;
+}
+
+li {
+	line-height: 44px;
+	padding: 0 0 0 10px;
+	color: rgba(0, 0, 0, 1);
+	font-weight: bold;
+	text-align: left;
+	border-bottom: 1px solid #D9D9D9;
+	overflow: hidden;
+}
+
+dl {
+	clear: both;
+	margin: 0;
+	width: 100%;
+}
+
+dt, dd {
+	display: inline-block;
+	line-height: 44px;
+	padding: 0;
+	color: rgba(0, 0, 0, 1);
+	overflow: hidden;
+}
+
+dt {
+	width: 20%;
+	font-weight: bold;
+	text-align: left;
+}
+
+dd {
+	padding: 0 20px 0 5px;
+	font-weight: normal;
+	text-align: left;
+}
+
+input[type=text], select {
+	width: 200px;
+	border: 2px inset;	
+	font: 12px Helvetica, Arial, Verdana, sans-serif;
+	display: inline-block;
+}
+
+.center {
+	background: inherit;
+	text-align: center;
+	width: 92%;
+}
+
+address {
+	font-weight: normal;
+	font-style: normal;
+}
+
+p {
+	width: 92%;
+	padding-left: 15px;
+}
