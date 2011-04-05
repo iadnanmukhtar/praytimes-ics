@@ -121,7 +121,9 @@ public class PrayTimeConfigBean extends PrayTime {
 		cookieValue.append("z:").append(z).append('#');
 		cookieValue.append("s:").append(getFajrIshaMethod()).append('#');
 		cookieValue.append("j:").append(getAsrMethod());
-		response.addCookie(new Cookie("CONFIG", cookieValue.toString()));
+		Cookie cookie = new Cookie("CONFIG", cookieValue.toString());
+		cookie.setMaxAge(6*30*24*60*60);
+		response.addCookie(cookie);
 	}
 
 	private String getParameter(HttpServletRequest request, String name,
