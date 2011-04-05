@@ -100,7 +100,7 @@
 		Keywords: Muslim, Islam, Prayer, Salah, Salat, Namaz, iCalendar, vCalendar, ical, ics
 	</p>
 	<p>
-		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FPray-Times-ICS-A-Muslim-Prayer-Calendar-Generator%2F153929961338506&amp;layout=standard&amp;show_faces=false&amp;width=290&amp;action=like&amp;font&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:290px; height:35px;" allowTransparency="true"></iframe>
+		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FPray-Times-ICS-A-Muslim-Prayer-Calendar-Generator%2F153929961338506&amp;layout=button_count&amp;show_faces=false&amp;width=250&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:21px;" allowTransparency="true"></iframe>
 	</p>
 	<h2><address>by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0</address></h2>
 	<script type="text/javascript">
