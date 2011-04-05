@@ -7,15 +7,26 @@
 <%@page contentType="text/html;"%>
 <%
 	PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
-	if (request.getQueryString() == null)
-		prayerConfig.addCookie(response);
+	prayerConfig.addCookie(response);
 	ArrayList<String> prayerNames = prayerConfig.getTimeNames();
 	Calendar date = Calendar.getInstance();
 	date.add(Calendar.DAY_OF_MONTH, prayerConfig.getOffset());
 %>
 <html>
 <head>
-<title>Pray Times ICS - Muslim Prayer Times iCalendar Generator</title>
+<title>
+		<%
+			if (prayerConfig.getLocation() == null) {
+		%>
+		Pray Times ICS - Muslim Prayer Times iCalendar Generator
+		<%
+			} else {
+		%>
+		Prayer Times for <%=prayerConfig.getLocation()%>
+		<%
+			}
+		%>
+</title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <meta name="keywords" content="Muslim, Islam, Prayer, Salah, Salat, Namaz, iCalendar, vCalendar, ical, ics" />
 <link href="styles.css" rel="stylesheet" type="text/css" />

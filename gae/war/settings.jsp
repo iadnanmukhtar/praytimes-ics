@@ -2,8 +2,6 @@
 <%@page contentType="text/html;"%>
 <%
 	PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
-	if (request.getMethod().toUpperCase().equals("POST"))
-		prayerConfig.addCookie(response);
 %>
 <html>
 <head>
@@ -55,7 +53,7 @@
 	<div>
 		<h2>Settings</h2>
 	</div>
-	<form id="config" method="post" action="/settings.jsp">
+	<form id="config" method="get" action="/">
 		<input type="hidden" name="z" value="" />
 		<ul>
 			<li>
@@ -142,13 +140,6 @@
 	<script type="text/javascript">
 		var config = document.getElementById("config");
 		config.z.value = new Date().getTimezoneOffset() * -1;
-	<%
-		if (request.getMethod().toUpperCase().equals("POST")) {
-	%>
-		window.location = '/';
-	<%
-		}
-	%>
 	</script>
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
