@@ -1,0 +1,6 @@
+#summary One-sentence summary of this page.
+
+= iCalendars for Cities Around the world =
+
+  * Makkah: [http://praytimes-ics.appspot.com/?l=Makkah,%20Saudi%20Arabia&x=21.42252&y=39.82619&z=180&s=5&j=0 App] [http://praytimes-ics.appspot.com/ical?l=Makkah,%20Saudi%20Arabia&x=21.42252&y=39.82619&z=180&s=5&j=0 iCal]
+  * Jeddah: [http://praytimes-ics.appspot.com/?l=Jeddah,%20Saudi%20Arabia&x=21.5540&y=39.1731&z=180&s=5&j=0 App] [http://praytimes-ics.appspot.com/ical?l=Jeddah,%20Saudi%20Arabia&x=21.5540&y=39.1731&z=180&s=5&j=0 iCal] 
