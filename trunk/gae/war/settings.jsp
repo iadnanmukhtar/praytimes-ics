@@ -2,6 +2,10 @@
 <%@page contentType="text/html;"%>
 <%
 	PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
+	if (request.getMethod().toUpperCase().equals("POST")) {
+		prayerConfig.addCookie(response);
+		response.sendRedirect("/");
+	}
 %>
 <html class="no-js">
 <head>
@@ -51,7 +55,7 @@
 	<div>
 		<h2>Settings</h2>
 	</div>
-	<form id="config" action="/index.jsp">
+	<form id="config" method="post" action="/settings.jsp">
 		<input type="hidden" name="z" value="" />
 		<ul>
 			<li>
