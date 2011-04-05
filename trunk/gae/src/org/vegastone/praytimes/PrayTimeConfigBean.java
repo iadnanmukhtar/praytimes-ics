@@ -14,7 +14,7 @@ public class PrayTimeConfigBean extends PrayTime {
 	private boolean hasCookie = false;
 
 	public PrayTimeConfigBean(HttpServletRequest request) {
-		if (request.getMethod().toUpperCase().equals("POST")) {
+		if (request.getQueryString() != null || request.getMethod().toUpperCase().equals("POST")) {
 			location = getParameter(request, "l", "");
 			x = new Double(getParameter(request, "x", "0"));
 			y = new Double(getParameter(request, "y", "0"));
