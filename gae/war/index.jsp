@@ -18,6 +18,9 @@
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <link href="styles.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" href="/icon.png" />
+<link rel="apple-touch-icon" href="/icon.png" />
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-10540377-3']);
