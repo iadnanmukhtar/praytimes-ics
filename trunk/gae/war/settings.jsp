@@ -9,23 +9,44 @@
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <link type="text/css" href="styles.css" rel="stylesheet" />
-<script type="text/javascript" src="modernizr-1.7.min.js"></script>
 <script type="text/javascript">
 	function getLocation() {
+		if (navigator.geolocation)
+			  navigator.geolocation.getCurrentPosition(positionSuccessHandler, positionErrorHandler);
+	}
+	function positionSuccessHandler(position) {
+		alert(position);
 		var config = document.getElementById("config");
-		config.z.value = new Date().getTimezoneOffset() * -1;
-		if (Modernizr.geolocation){
-			  navigator.geolocation.getCurrentPosition(function(position) {
-			    config.x.value = position.coords.latitude;
-			    config.y.value = position.coords.longitude;
-			  });  
-		}
+	    config.x.value = Math.round(position.coords.latitude * 1000) / 1000;
+	    config.y.value = Math.round(position.coords.longitude * 1000) / 1000;
 	}    
+	function positionErrorHandler(error) {
+	    var message = "";   
+	    switch (error.code) {
+	        case error.PERMISSION_DENIED:
+	            message = "This website does not have permission to use " + 
+	                      "the Geolocation API";
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	            message = "The current position could not be determined.";
+	            break;
+	        case error.PERMISSION_DENIED_TIMEOUT:
+	            message = "The current position could not be determined " + 
+	                      "within the specified timeout period.";            
+	            break;
+	    }
+	    if (message == "") {
+	        var strErrorCode = error.code.toString();
+	        message = "The position could not be determined due to " + 
+	                  "an unknown error (Code: " + strErrorCode + ").";
+	    }
+	    alert(message);
+	}
 </script>
 </head>
 <body>
 	<div class="header">
-		<h1>Pray Time ICS</h1>
+		<h1>Pray Times ICS</h1>
 		<button type="button" id="settings" onclick="document.getElementById('config').submit();">Done</button>
 	</div>
 	<div>
@@ -115,6 +136,10 @@
 		</div>
 	</form>
 	<h2><address>by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0</address></h2>
+	<script type="text/javascript">
+		var config = document.getElementById("config");
+		config.z.value = new Date().getTimezoneOffset() * -1;
+	</script>
 </body>
 </html>
 

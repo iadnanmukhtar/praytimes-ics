@@ -21,7 +21,19 @@
 </head>
 <body>
 	<div class="header">
-		<h1>Prayer Times for <%=prayerConfig.getLocation()%></h1>
+		<h1>Prayer Times for
+		<%
+			if (prayerConfig.getLocation() == null) {
+		%>
+			Unknown Location
+		<%
+			} else {
+		%>
+			<%=prayerConfig.getLocation()%>
+		<%
+			}
+		%>
+		</h1>
 		<button type="button" id="settings" onclick="window.location='settings.jsp';">Settings</button>
 	</div>
 	<div>

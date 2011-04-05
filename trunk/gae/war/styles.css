@@ -101,7 +101,7 @@ dd {
 }
 
 input[type=text], select {
-	width: 200px;
+	width: 150px;
 	border: 2px inset;	
 	font: 12px Helvetica, Arial, Verdana, sans-serif;
 	display: inline-block;
