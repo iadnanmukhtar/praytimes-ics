@@ -2,10 +2,8 @@
 <%@page contentType="text/html;"%>
 <%
 	PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
-	if (request.getMethod().toUpperCase().equals("POST")) {
+	if (request.getMethod().toUpperCase().equals("POST"))
 		prayerConfig.addCookie(response);
-		response.sendRedirect("/");
-	}
 %>
 <html class="no-js">
 <head>
@@ -142,6 +140,13 @@
 	<script type="text/javascript">
 		var config = document.getElementById("config");
 		config.z.value = new Date().getTimezoneOffset() * -1;
+	<%
+		if (request.getMethod().toUpperCase().equals("POST")) {
+	%>
+		window.location = '/';
+	<%
+		}
+	%>
 	</script>
 </body>
 </html>
