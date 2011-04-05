@@ -15,7 +15,6 @@
 			  navigator.geolocation.getCurrentPosition(positionSuccessHandler, positionErrorHandler);
 	}
 	function positionSuccessHandler(position) {
-		alert(position);
 		var config = document.getElementById("config");
 	    config.x.value = Math.round(position.coords.latitude * 1000) / 1000;
 	    config.y.value = Math.round(position.coords.longitude * 1000) / 1000;
