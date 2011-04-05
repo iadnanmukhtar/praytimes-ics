@@ -5,12 +5,14 @@
 	if (request.getMethod().toUpperCase().equals("POST"))
 		prayerConfig.addCookie(response);
 %>
-<html class="no-js">
+<html>
 <head>
 <title>Pray Times ICS - Settings</title>
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <link type="text/css" href="styles.css" rel="stylesheet" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" href="/icon.png" />
 <script type="text/javascript">
 	function getLocation() {
 		if (navigator.geolocation)
