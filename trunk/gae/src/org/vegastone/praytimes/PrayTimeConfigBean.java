@@ -14,7 +14,15 @@ public class PrayTimeConfigBean extends PrayTime {
 	private boolean hasCookie = false;
 
 	public PrayTimeConfigBean(HttpServletRequest request) {
-		if (request.getQueryString() == null || request.getQueryString().trim().equals("")) {
+		if (request.getMethod().toUpperCase().equals("POST")) {
+			location = getParameter(request, "l", "");
+			x = new Double(getParameter(request, "x", "0"));
+			y = new Double(getParameter(request, "y", "0"));
+			z = new Integer(getParameter(request, "z", "0"));
+			offset = new Integer(getParameter(request, "o", "0"));
+			setFajrIshaMethod(new Integer(getParameter(request, "s", "2")));
+			setAsrMethod(new Integer(getParameter(request, "j", "0")));
+		} else {
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null && cookies.length > 0) {
 				for (Cookie cookie : cookies) {
@@ -43,14 +51,6 @@ public class PrayTimeConfigBean extends PrayTime {
 					}
 				}
 			}
-		} else {
-			location = getParameter(request, "l", "");
-			x = new Double(getParameter(request, "x", "0"));
-			y = new Double(getParameter(request, "y", "0"));
-			z = new Integer(getParameter(request, "z", "0"));
-			offset = new Integer(getParameter(request, "o", "0"));
-			setFajrIshaMethod(new Integer(getParameter(request, "s", "2")));
-			setAsrMethod(new Integer(getParameter(request, "j", "0")));
 		}
 		setTimeFormat(0);
 		int[] offsets = { 0, 0, 0, 0, 0, 0, 0 };
