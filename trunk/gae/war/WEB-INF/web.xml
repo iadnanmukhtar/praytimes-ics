@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ICS</servlet-name>
-		<url-pattern>/ics</url-pattern>
+		<url-pattern>/praytimes.ics</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ICS</servlet-name>

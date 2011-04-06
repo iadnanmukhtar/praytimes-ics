@@ -1,5 +1,7 @@
 package org.vegastone.praytimes;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,8 @@ public class PrayTimeConfigBean extends PrayTime {
 	private boolean hasCookie = false;
 
 	public PrayTimeConfigBean(HttpServletRequest request) {
-		if (request.getQueryString() != null || request.getMethod().toUpperCase().equals("POST")) {
+		if (request.getQueryString() != null
+				|| request.getMethod().toUpperCase().equals("POST")) {
 			location = getParameter(request, "l", "");
 			x = new Double(getParameter(request, "x", "0"));
 			y = new Double(getParameter(request, "y", "0"));
@@ -60,7 +63,7 @@ public class PrayTimeConfigBean extends PrayTime {
 	public boolean hasCookie() {
 		return hasCookie;
 	}
-	
+
 	public String getLocation() {
 		return location;
 	}
@@ -113,6 +116,15 @@ public class PrayTimeConfigBean extends PrayTime {
 		setAsrJuristic(asrMethod);
 	}
 
+	public String getQueryString() throws Exception {
+		return new StringBuilder("l=")
+				.append(URLEncoder.encode(getLocation(), "utf-8"))
+				.append("&x=").append(getX()).append("&y=").append(getY())
+				.append("&z=").append(getZ()).append("&s=")
+				.append(getFajrIshaMethod()).append("&s=")
+				.append(getAsrMethod()).toString();
+	}
+
 	public void addCookie(HttpServletResponse response) {
 		StringBuilder cookieValue = new StringBuilder();
 		cookieValue.append("l:").append(location).append('#');
@@ -122,7 +134,7 @@ public class PrayTimeConfigBean extends PrayTime {
 		cookieValue.append("s:").append(getFajrIshaMethod()).append('#');
 		cookieValue.append("j:").append(getAsrMethod());
 		Cookie cookie = new Cookie("CONFIG", cookieValue.toString());
-		cookie.setMaxAge(6*30*24*60*60);
+		cookie.setMaxAge(6 * 30 * 24 * 60 * 60);
 		response.addCookie(cookie);
 	}
 
