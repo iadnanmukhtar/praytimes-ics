@@ -65,6 +65,9 @@ public class PrayTimeConfigBean extends PrayTime {
 	}
 
 	public String getLocation() {
+		if (location != null
+				&& (location.equals("null") || location.trim().equals("")))
+			location = null;
 		return location;
 	}
 
@@ -117,8 +120,10 @@ public class PrayTimeConfigBean extends PrayTime {
 	}
 
 	public String getQueryString() throws Exception {
-		return new StringBuilder("l=")
-				.append(URLEncoder.encode(getLocation(), "utf-8"))
+		String l = getLocation();
+		if (l == null)
+			l = "";
+		return new StringBuilder("l=").append(URLEncoder.encode(l, "utf-8"))
 				.append("&x=").append(getX()).append("&y=").append(getY())
 				.append("&z=").append(getZ()).append("&s=")
 				.append(getFajrIshaMethod()).append("&s=")
