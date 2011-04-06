@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary iCalendars for Cities Around the world
 
 = iCalendars for Cities Around the world =
 
