@@ -16,16 +16,20 @@ public class ICSServlet extends HttpServlet {
 		PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(req);
 		ArrayList<String> prayerNames = prayerConfig.getTimeNames();
 
-		resp.setContentType("text/calendar");
-		resp.addHeader("Content-disposition", "attachment; filename="
-				+ prayerConfig.getLocation() + ".ics");
+		resp.setContentType("text/calendar; charset=UTF-8");
+		// resp.addHeader("Content-disposition", "attachment; filename=" +
+		// prayerConfig.getLocation() + ".ics");
 		PrintWriter out = resp.getWriter();
 		out.println("BEGIN:VCALENDAR");
 		out.println("VERSION:2.0");
 		out.println("PRODID:-//vegaSTONE//Pray Times ICS 1.0//EN");
 		out.println("CALSCALE:GREGORIAN");
 		out.println("METHOD:PUBLISH");
-
+		out.println("X-WR-CALNAME:Prayer Times for "
+				+ prayerConfig.getLocation());
+		out.println("X-WR-CALDESC:Prayer Times for "
+				+ prayerConfig.getLocation()
+				+ " - http://praytimes-ics.appspot.com");
 		for (Calendar date : new CalendarIterator()) {
 			ArrayList<String> prayerTimes = prayerConfig.getPrayerTimes(date,
 					prayerConfig.getX(), prayerConfig.getY(), 0.0);

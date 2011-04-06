@@ -29,6 +29,7 @@
 </title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <meta name="keywords" content="Muslim, Islam, Prayer, Salah, Salat, Namaz, iCalendar, vCalendar, ical, ics" />
+<meta name="google-site-verification" content="rSRF7_6WUBm-QH_4GDGq44L_mhDjJ0VxvZKBJM4VXHM" />
 <link href="styles.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="icon" type="image/png" href="/icon.png" />
@@ -54,12 +55,7 @@
 	<div>
 		<h2><%=PrayEvent.DATE.format(date.getTime())%></h2>
 	</div>
-	<form id="config" action="today.jsp">
-		<input type="hidden" name="l" value="<%=prayerConfig.getLocation()%>" />
-		<input type="hidden" name="x" value="<%=prayerConfig.getX()%>" />
-		<input type="hidden" name="y" value="<%=prayerConfig.getY()%>" />
-		<input type="hidden" name="z" value="<%=prayerConfig.getZ()%>" />
-		<ul>
+	<ul>
 	<%
 		ArrayList<String> prayerTimes = prayerConfig.getPrayerTimes(date,
 				prayerConfig.getX(), prayerConfig.getY(), 0.0);
@@ -84,11 +80,10 @@
 			i++;
 		}
 	%>
-		</ul>
-		<div class="center">
-			<button type="button" onclick="window.location='ical'">Download iCalendar</button>
-		</div>
-	</form>
+	</ul>
+	<p class="center">
+		<a href="/praytimes.ics?<%=prayerConfig.getQueryString()%>">iCalendar Feed</a>
+	</p>
 	<p>
 		Use <strong>Pray Times ICS</strong> to calculate the five daily Muslim prayer times.
 		It is also a prayer calendar generator, downloadable as an <strong>iCalendar</strong>
@@ -102,7 +97,14 @@
 	<p>
 		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FPray-Times-ICS-A-Muslim-Prayer-Calendar-Generator%2F153929961338506&amp;layout=button_count&amp;show_faces=false&amp;width=250&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:21px;" allowTransparency="true"></iframe>
 	</p>
-	<h2><address>by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0</address></h2>
+	<p>
+		<a href="http://www.facebook.com/pages/Pray-Times-ICS-A-Muslim-Prayer-Calendar-Generator/153929961338506">Facebook Page</a><br />
+		<a href="http://code.google.com/p/praytimes-ics/">Project Page</a><br />
+		<a href="http://code.google.com/p/praytimes-ics/issues/list">Issues?</a><br />
+	</p>
+	<p>
+		by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0
+	</p>
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-10540377-3']);
