@@ -106,6 +106,10 @@
 		<a href="http://code.google.com/p/praytimes-ics/issues/list">Issues?</a><br />
 	</p>
 	<p>
+		by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0<br />
+		Credit: <a href="http://www.praytimes.org">PrayTimes.org</a> 
+	</p>
+	<p>
 		<script type="text/javascript"><!--
 		window.googleAfmcRequest = {
 		  client: 'ca-mb-pub-1199080602686133',
@@ -123,9 +127,6 @@
 		//--></script>
 		<script type="text/javascript" 
 		   src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-	</p>
-	<p>
-		by <a href="https://profiles.google.com/adnanmukhtar">Adnan Mukhtar</a>, v1.0
 	</p>
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
