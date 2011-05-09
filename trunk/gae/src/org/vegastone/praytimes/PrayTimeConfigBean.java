@@ -18,20 +18,28 @@ public class PrayTimeConfigBean extends PrayTime {
 	private int offset;
 	private boolean hasCookie = false;
 
+	public PrayTimeConfigBean(String location, double x, double y, int z,
+			int offset, int s, int j) {
+		construct(location, x, y, z, offset, s, j);
+	}
+
 	public PrayTimeConfigBean(HttpServletRequest request) {
+		int s = 0;
+		int j = 0;
 		if (StringUtils.isNotBlank(request.getQueryString())
 				|| request.getMethod().toUpperCase().equals("POST")) {
 			location = getParameter(request, "l", "");
 			if (StringUtils.endsWith(request.getServletPath(), ".ics")) {
 				location = request.getServletPath();
-				location = StringUtils.substring(location, 1, location.length()-4);
+				location = StringUtils.substring(location, 1,
+						location.length() - 4);
 			}
 			x = new Double(getParameter(request, "x", "0"));
 			y = new Double(getParameter(request, "y", "0"));
 			z = new Integer(getParameter(request, "z", "0"));
 			offset = new Integer(getParameter(request, "o", "0"));
-			setFajrIshaMethod(new Integer(getParameter(request, "s", "2")));
-			setAsrMethod(new Integer(getParameter(request, "j", "0")));
+			s = new Integer(getParameter(request, "s", "2"));
+			j = new Integer(getParameter(request, "j", "0"));
 		} else {
 			Cookie[] cookies = request.getCookies();
 			if (!ArrayUtils.isEmpty(cookies)) {
@@ -50,9 +58,9 @@ public class PrayTimeConfigBean extends PrayTime {
 								else if (tokens[0].equals("z"))
 									z = new Integer(tokens[1]);
 								else if (tokens[0].equals("s"))
-									setFajrIshaMethod(new Integer(tokens[1]));
+									s = new Integer(tokens[1]);
 								else if (tokens[0].equals("j"))
-									setAsrMethod(new Integer(tokens[1]));
+									j = new Integer(tokens[1]);
 							}
 							hasCookie = true;
 						} catch (Exception e) {
@@ -62,6 +70,18 @@ public class PrayTimeConfigBean extends PrayTime {
 				}
 			}
 		}
+		construct(location, x, y, z, offset, s, j);
+	}
+
+	private void construct(String location, double x, double y, int z,
+			int offset, int s, int j) {
+		this.location = location;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.offset = offset;
+		setFajrIshaMethod(s);
+		setAsrMethod(j);
 		setTimeFormat(0);
 		int[] offsets = { 0, 0, 0, 0, 0, 0, 0 };
 		tune(offsets);
