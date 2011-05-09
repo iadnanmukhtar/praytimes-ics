@@ -155,7 +155,7 @@ public class PrayTimeConfigBean extends PrayTime {
 		return new StringBuilder("/").append(l).append(".ics?").append("x=")
 				.append(getX()).append("&y=").append(getY()).append("&z=")
 				.append(getZ()).append("&s=").append(getFajrIshaMethod())
-				.append("&s=").append(getAsrMethod()).toString();
+				.append("&j=").append(getAsrMethod()).toString();
 	}
 
 	public void addCookie(HttpServletResponse response) {
