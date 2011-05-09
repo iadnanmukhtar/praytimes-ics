@@ -40,7 +40,8 @@ public class ICSServlet extends HttpServlet {
 		StringBuilder s = new StringBuilder("Prayer Times for "
 				+ prayerConfig.getLocation());
 		ics.getProperties().add(new XProperty("X-WR-CALNAME", s.toString()));
-		s.append("; Fajr/Isha Method: ");
+		s.append('\n');
+		s.append("Fajr/Isha Method: ");
 		switch (prayerConfig.getFajrIshaMethod()) {
 		case 0:
 			s.append("Ithna Ashari");
@@ -71,6 +72,23 @@ public class ICSServlet extends HttpServlet {
 			break;
 		}
 		s.append('\n');
+		s.append("; Asr Method: ");
+		switch (prayerConfig.getFajrIshaMethod()) {
+		case 0:
+			s.append("Standard (Shafi'ii, Hanbali, Mailiki)");
+			break;
+		case 1:
+			s.append("Hanafi");
+			break;
+		default:
+			s.append("Unknown");
+			break;
+		}
+		s.append('\n');
+		s.append("; Location: ").append(prayerConfig.getX()).append(", ")
+				.append(prayerConfig.getY()).append('\n');
+		s.append("; Timezone: ").append(prayerConfig.getZ() / 60).append("")
+				.append('\n');
 		ics.getProperties().add(new XProperty("X-WR-CALDESC", s.toString()));
 
 		for (Calendar date : new CalendarIterator()) {
