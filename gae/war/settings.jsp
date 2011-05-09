@@ -1,7 +1,19 @@
+<%@page import="java.util.*"%>
 <%@page import="org.vegastone.praytimes.PrayTimeConfigBean"%>
 <%@page contentType="text/html;"%>
 <%
 	PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
+	Map<Integer, String> s = new HashMap<Integer, String>();
+	s.put(0, "Ithna Ashari");
+	s.put(1, "University of Islamic Sciences, Karachi");
+	s.put(2, "Islamic Society of North America (ISNA)");
+	s.put(3, "Muslim World League (MWL)");
+	s.put(4, "Umm al-Qura, Makkah");
+	s.put(5, "Egyptian General Authority of Survey");
+	s.put(6, "Institute of Geophysics, University of Tehran");
+	Map<Integer, String> j = new HashMap<Integer, String>();
+	j.put(0, "Standard (Shafi'ee, Hanbali, Maliki)");
+	j.put(1, "Hanafi");
 %>
 <html>
 <head>
@@ -20,6 +32,7 @@
 		var config = document.getElementById("config");
 	    config.x.value = Math.round(position.coords.latitude * 1000) / 1000;
 	    config.y.value = Math.round(position.coords.longitude * 1000) / 1000;
+	    alert("Location found.");
 	}    
 	function positionErrorHandler(error) {
 	    var message = "";   
@@ -103,16 +116,13 @@
 					</dt>
 					<dd>
 						<select name="s">
-							<option value="2">Islamic Society of North America
-								(ISNA)</option>
-							<option value="1">University of Islamic Sciences,
-								Karachi</option>
-							<option value="3">Muslim World League (MWL)</option>
-							<option value="4">Umm al-Qura, Makkah</option>
-							<option value="5">Egyptian General Authority of Survey</option>
-							<option value="6">Institute of Geophysics, University of
-								Tehran</option>
-							<option value="0">Ithna Ashari</option>
+<%
+	for (Map.Entry<Integer, String> e : s.entrySet()) {
+%>
+							<option value="<%=e.getKey()%>" <%=e.getKey() == prayerConfig.getFajrIshaMethod() ? "selected=\"selected\"" : ""%> ><%=e.getValue()%></option>
+<%
+	}
+%>
 						</select>
 					</dd>
 				</dl>
@@ -124,8 +134,13 @@
 					</dt>
 					<dd>
 						<select name="j">
-							<option value="0">Shafi'i, Hanbali, Maliki</option>
-							<option value="1">Hanafi</option>
+<%
+	for (Map.Entry<Integer, String> e : j.entrySet()) {
+%>
+							<option value="<%=e.getKey()%>" <%=e.getKey() == prayerConfig.getAsrMethod() ? "selected=\"selected\"" : ""%> ><%=e.getValue()%></option>
+<%
+	}
+%>
 						</select>
 					</dd>
 				</dl>
