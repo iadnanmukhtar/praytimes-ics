@@ -5,6 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
+
+import net.fortuna.ical4j.model.Dur;
+import net.fortuna.ical4j.model.Recur;
+import net.fortuna.ical4j.model.component.VAlarm;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.Action;
+import net.fortuna.ical4j.model.property.Clazz;
+import net.fortuna.ical4j.model.property.Location;
+import net.fortuna.ical4j.model.property.RRule;
+import net.fortuna.ical4j.model.property.Transp;
+import net.fortuna.ical4j.model.property.XProperty;
 
 public class PrayEvent {
 
@@ -17,26 +29,35 @@ public class PrayEvent {
 	private String name;
 	private Calendar date;
 	private String time;
-	private Date isoDate;
+	private Date isoDateStart;
+	private Date isoDateEnd;
 	private String formattedDate;
 	private String formattedTime;
 	boolean reminder = true;
 
-	public PrayEvent(PrayTimeConfigBean prayerConfig, String name, Calendar date, String time)
-			throws ParseException {
+	public PrayEvent(PrayTimeConfigBean prayerConfig, String name,
+			Calendar date, String time) throws ParseException {
 		this.location = prayerConfig.getLocation();
 		this.name = name;
 		this.date = date;
 		this.time = time;
+
 		String[] t = time.split(":");
-		String _isoDate = String.format("%1$tY%1$tm%1$tdT%2$s%3$s00Z", date,
-				t[0], t[1]);
-		isoDate = ISO_DATE.parse(_isoDate);
-		Calendar localDate = Calendar.getInstance();
-		localDate.setTime(isoDate);
-		localDate.add(Calendar.MINUTE, prayerConfig.getZ());
-		formattedDate = DATE.format(localDate.getTime());
-		formattedTime = TIME.format(localDate.getTime()).toLowerCase();
+		String isoDateStartString = String.format(
+				"%1$tY%1$tm%1$tdT%2$s%3$s00Z", date, t[0], t[1]);
+
+		isoDateStart = ISO_DATE.parse(isoDateStartString);
+		Calendar localDateStart = Calendar.getInstance();
+		localDateStart.setTime(isoDateStart);
+		localDateStart.add(Calendar.MINUTE, prayerConfig.getZ());
+		formattedDate = DATE.format(localDateStart.getTime());
+		formattedTime = TIME.format(localDateStart.getTime()).toLowerCase();
+
+		Calendar isoCalEnd = Calendar.getInstance();
+		isoCalEnd.setTime(isoDateStart);
+		isoCalEnd.add(Calendar.MINUTE, 5);
+		isoDateEnd = isoCalEnd.getTime();
+
 	}
 
 	public String getLocation() {
@@ -56,7 +77,7 @@ public class PrayEvent {
 	}
 
 	public Date getISODate() {
-		return isoDate;
+		return isoDateStart;
 	}
 
 	public String getFormattedDate() {
@@ -71,37 +92,25 @@ public class PrayEvent {
 		this.reminder = reminder;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder s = new StringBuilder();
-		s.append(attr("BEGIN", "VEVENT"));
-		s.append(attr("SUMMARY", name));
-		s.append(attr("DTSTART", ISO_DATE.format(isoDate)));
-		s.append(attr("DURATION", "PT5M"));
-		s.append(attr("RRULE", "FREQ=YEARLY"));
-		s.append(attr("LOCATION", location));
-		s.append(attr("CLASS", "PUBLIC"));
-		s.append(attr("TRANSP", "TRANSPARENT"));
-		s.append(attr("X-GOOGLE-CALENDAR-CONTENT-TITLE", name));
-		// s.append(attr("X-GOOGLE-CALENDAR-CONTENT-ICON", ""));
-		// s.append(attr("X-GOOGLE-CALENDAR-CONTENT-URL", ""));
-		// s.append(attr("X-GOOGLE-CALENDAR-CONTENT-TYPE", "image/gif"));
-		// s.append(attr("X-GOOGLE-CALENDAR-CONTENT-WIDTH", ""));
-		// s.append(attr("X-GOOGLE-CALENDAR-CONTENT-HEIGHT", ""));
+	public VEvent toEvent() {
+		VEvent event = new VEvent(new net.fortuna.ical4j.model.DateTime(
+				isoDateStart.getTime()), new net.fortuna.ical4j.model.DateTime(
+				isoDateEnd.getTime()), name);
+		event.getStartDate().setUtc(true);
+		event.getEndDate().setUtc(true);
+		event.getProperties().add(new XProperty("UID", UUID.randomUUID().toString()));
+		event.getProperties().add(new RRule(new Recur(Recur.YEARLY, 1)));
+		event.getProperties().add(new Location(location));
+		event.getProperties().add(Clazz.PUBLIC);
+		event.getProperties().add(Transp.TRANSPARENT);
+		event.getProperties().add(
+				new XProperty("X-GOOGLE-CALENDAR-CONTENT-TITLE", name));
 		if (reminder) {
-			s.append(attr("BEGIN", "VALARM"));
-			s.append(attr("TRIGGER", "-PT0M"));
-			s.append(attr("ACTION", "DISPLAY"));
-			s.append(attr("DESCRIPTION", "Reminder"));
-			s.append(attr("END", "VALARM"));
+			VAlarm alarm = new VAlarm(new Dur(0, 0, 0, 0));
+			alarm.getProperties().add(Action.DISPLAY);
+			event.getAlarms().add(alarm);
 		}
-		s.append(attr("END", "VEVENT"));
-		return s.toString();
-	}
-
-	private String attr(String name, String value) {
-		return new StringBuilder(name).append(':').append(value).append('\n')
-				.toString();
+		return event;
 	}
 
 }
