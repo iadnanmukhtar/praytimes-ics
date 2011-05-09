@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import net.fortuna.ical4j.model.Dur;
-import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Action;
@@ -98,8 +97,12 @@ public class PrayEvent {
 				isoDateEnd.getTime()), name);
 		event.getStartDate().setUtc(true);
 		event.getEndDate().setUtc(true);
-		event.getProperties().add(new XProperty("UID", UUID.randomUUID().toString()));
-		event.getProperties().add(new RRule(new Recur(Recur.YEARLY, 1)));
+		event.getProperties().add(
+				new XProperty("UID", UUID.randomUUID().toString()));
+		try {
+			event.getProperties().add(new RRule("FREQ=YEARLY"));
+		} catch (ParseException e) {
+		}
 		event.getProperties().add(new Location(location));
 		event.getProperties().add(Clazz.PUBLIC);
 		event.getProperties().add(Transp.TRANSPARENT);

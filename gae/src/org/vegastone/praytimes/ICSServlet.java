@@ -17,10 +17,18 @@ import net.fortuna.ical4j.model.property.XProperty;
 
 @SuppressWarnings("serial")
 public class ICSServlet extends HttpServlet {
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-
 		PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(req);
+		net.fortuna.ical4j.model.Calendar ics = generateICS(prayerConfig);
+		resp.setContentType("text/calendar; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		out.write(ics.toString());
+	}
+
+	public net.fortuna.ical4j.model.Calendar generateICS(
+			PrayTimeConfigBean prayerConfig) throws IOException {
 		ArrayList<String> prayerNames = prayerConfig.getTimeNames();
 
 		net.fortuna.ical4j.model.Calendar ics = new net.fortuna.ical4j.model.Calendar();
@@ -83,8 +91,7 @@ public class ICSServlet extends HttpServlet {
 			}
 		}
 
-		resp.setContentType("text/calendar; charset=UTF-8");
-		PrintWriter out = resp.getWriter();
-		out.write(ics.toString());
+		return ics;
 	}
+
 }
