@@ -6,6 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+
 public class PrayTimeConfigBean extends PrayTime {
 
 	private String location;
@@ -16,9 +19,13 @@ public class PrayTimeConfigBean extends PrayTime {
 	private boolean hasCookie = false;
 
 	public PrayTimeConfigBean(HttpServletRequest request) {
-		if (request.getQueryString() != null
+		if (StringUtils.isNotBlank(request.getQueryString())
 				|| request.getMethod().toUpperCase().equals("POST")) {
 			location = getParameter(request, "l", "");
+			if (StringUtils.endsWith(request.getServletPath(), ".ics")) {
+				location = request.getServletPath();
+				location = StringUtils.substring(location, 1, location.length()-4);
+			}
 			x = new Double(getParameter(request, "x", "0"));
 			y = new Double(getParameter(request, "y", "0"));
 			z = new Integer(getParameter(request, "z", "0"));
@@ -27,7 +34,7 @@ public class PrayTimeConfigBean extends PrayTime {
 			setAsrMethod(new Integer(getParameter(request, "j", "0")));
 		} else {
 			Cookie[] cookies = request.getCookies();
-			if (cookies != null && cookies.length > 0) {
+			if (!ArrayUtils.isEmpty(cookies)) {
 				for (Cookie cookie : cookies) {
 					if (cookie.getName().equals("CONFIG")) {
 						try {
@@ -119,15 +126,16 @@ public class PrayTimeConfigBean extends PrayTime {
 		setAsrJuristic(asrMethod);
 	}
 
-	public String getQueryString() throws Exception {
+	public String getCalendarFeed() throws Exception {
 		String l = getLocation();
 		if (l == null)
 			l = "";
-		return new StringBuilder("l=").append(URLEncoder.encode(l, "utf-8"))
-				.append("&x=").append(getX()).append("&y=").append(getY())
-				.append("&z=").append(getZ()).append("&s=")
-				.append(getFajrIshaMethod()).append("&s=")
-				.append(getAsrMethod()).toString();
+		l = URLEncoder.encode(l, "UTF-8");
+		l = StringUtils.replace(l, "+", "%20");
+		return new StringBuilder("/").append(l).append(".ics?").append("x=")
+				.append(getX()).append("&y=").append(getY()).append("&z=")
+				.append(getZ()).append("&s=").append(getFajrIshaMethod())
+				.append("&s=").append(getAsrMethod()).toString();
 	}
 
 	public void addCookie(HttpServletResponse response) {
@@ -146,7 +154,7 @@ public class PrayTimeConfigBean extends PrayTime {
 	private String getParameter(HttpServletRequest request, String name,
 			String defaultValue) {
 		String value = request.getParameter(name);
-		if (value == null || value.equals(""))
+		if (StringUtils.isBlank(value))
 			value = defaultValue;
 		return value;
 	}
