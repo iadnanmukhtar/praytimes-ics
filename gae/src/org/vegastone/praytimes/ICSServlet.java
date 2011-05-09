@@ -40,7 +40,7 @@ public class ICSServlet extends HttpServlet {
 		StringBuilder s = new StringBuilder("Prayer Times for "
 				+ prayerConfig.getLocation());
 		ics.getProperties().add(new XProperty("X-WR-CALNAME", s.toString()));
-		s.append('\n');
+		s.append(";\n ");
 		s.append("Fajr/Isha Method: ");
 		switch (prayerConfig.getFajrIshaMethod()) {
 		case 0:
@@ -108,7 +108,7 @@ public class ICSServlet extends HttpServlet {
 				i++;
 			}
 		}
-
+		s.append("; Pray Times ICS - http://praytimes-ics.appspot.com\n");
 		return ics;
 	}
 
