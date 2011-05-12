@@ -2,6 +2,7 @@ package org.vegastone.praytimes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -18,12 +19,13 @@ import net.fortuna.ical4j.model.property.XProperty;
 @SuppressWarnings("serial")
 public class ICSServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(req);
+		trackPageView(request, response);
+		PrayTimeConfigBean prayerConfig = new PrayTimeConfigBean(request);
 		net.fortuna.ical4j.model.Calendar ics = generateICS(prayerConfig);
-		resp.setContentType("text/calendar; charset=UTF-8");
-		PrintWriter out = resp.getWriter();
+		response.setContentType("text/calendar; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		out.write(ics.toString());
 	}
 
@@ -110,6 +112,33 @@ public class ICSServlet extends HttpServlet {
 		}
 		s.append("; Pray Times ICS - http://praytimes-ics.appspot.com\n");
 		return ics;
+	}
+
+	// Copyright 2009 Google Inc. All Rights Reserved.
+	private static final String GA_ACCOUNT = "UA-10540377-3";
+
+	private void trackPageView(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String utmac = GA_ACCOUNT;
+		String utmn = Integer.toString((int) (Math.random() * 0x7fffffff));
+		String utmdebug = null;
+		String guid = "ON";
+		String utmp = null;
+		String referer = request.getHeader("referer");
+		String query = request.getQueryString();
+		String path = request.getRequestURI();
+		if (referer == null || "".equals(referer)) {
+			referer = "-";
+		}
+		if (path != null) {
+			if (query != null) {
+				path += "?" + query;
+			}
+			utmp = URLEncoder.encode(path, "UTF-8");
+		}
+		String utmr = URLEncoder.encode(referer, "UTF-8");
+		new TrackGoogleAnalyticsPageView(request, response, utmr, utmp, utmac,
+				utmdebug, guid);
 	}
 
 }
