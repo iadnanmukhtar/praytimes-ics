@@ -1,0 +1,6 @@
+# iCalendars for Cities Around the world #
+
+  * Makkah, Saudi Arabia: [view](http://praytimes-ics.appspot.com/?l=Makkah,%20Saudi%20Arabia&x=21.42252&y=39.82619&z=180&s=5&j=0) [subscribe](http://praytimes-ics.appspot.com/praytimes.ics?l=Makkah,%20Saudi%20Arabia&x=21.42252&y=39.82619&z=180&s=5&j=0)
+  * Jeddah, Saudi Arabia: [view](http://praytimes-ics.appspot.com/?l=Jeddah,%20Saudi%20Arabia&x=21.5540&y=39.1731&z=180&s=5&j=0) [subscribe](http://praytimes-ics.appspot.com/praytimes.ics?l=Jeddah,%20Saudi%20Arabia&x=21.5540&y=39.1731&z=180&s=5&j=0)
+  * Suwanee Musalla, GA: [view](http://praytimes-ics.appspot.com/?z=-240&l=Suwanee+Musalla%2C+GA&x=34.03157&y=-84.04520&s=2&j=0) [subscribe](http://praytimes-ics.appspot.com/Suwanee%20Musalla%2C%20GA.ics?x=34.03157&y=-84.04520&z=-240&s=2&j=0)
+  * Valley Ranch Masjid, Irving, TX: [view](http://praytimes-ics.appspot.com/?z=-300&l=Valley+Ranch+Masjid%2C+Irving%2C+TX&x=32.94071&y=-96.95392&s=2&j=0) [subscribe](http://praytimes-ics.appspot.com/Valley%20Ranch%20Masjid%2C%20Irving%2C%20TX.ics?x=32.94071&y=-96.95392&z=-300&s=2&j=0)
